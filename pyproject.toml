@@ -10,8 +10,8 @@ authors = [
 
 readme = 'README.md'
 
-repository = 'https://github.com/usePF/pytest-common-subject'
-homepage = 'https://github.com/usePF/pytest-common-subject'
+repository = 'https://github.com/PerchSecurity/pytest-common-subject'
+homepage = 'https://github.com/PerchSecurity/pytest-common-subject'
 
 keywords = ['pytest']
 
@@ -21,7 +21,7 @@ keywords = ['pytest']
 # XXX: for whatever reason, poetry doesn't like `>=3.6` — the additional pin allows locking to work
 python = '^3.6, >= 3.6'
 
-pytest = '>=3.6, <4.6'
+pytest = '>=3.6, <6.1'
 pytest-lambda = '>=0.1.0'
 pytest-fixture-order = '0.1.1'
 lazy-object-proxy = '^1.3.1'
