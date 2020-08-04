@@ -6,10 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [Unreleased]
+### Fixed
+ - Register `precondition` mark to avoid pytest warning 
 
 
 ## [1.0.2] - 2020-08-01
-- Support pytest versions 4.6, 5.0, 5.1, 5.2, 5.3, 5.4, and 6.0
+ - Support pytest versions 4.6, 5.0, 5.1, 5.2, 5.3, 5.4, and 6.0
 
 
 ## [1.0.1] - 2019-05-26
