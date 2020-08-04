@@ -9,6 +9,14 @@ authors = [
 ]
 
 readme = 'README.md'
+packages = [
+    { include = "pytest_common_subject" },
+    { include = "pytest.ini", format = "sdist" },
+    { include = "tox.ini", format = "sdist" },
+    { include = "tests", format = "sdist" },
+    { include = "LICENSE", format = "sdist" },
+    { include = "CHANGELOG.md", format = "sdist" },
+]
 
 repository = 'https://github.com/PerchSecurity/pytest-common-subject'
 homepage = 'https://github.com/PerchSecurity/pytest-common-subject'

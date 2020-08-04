@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Fixed
- - Register `precondition` mark to avoid pytest warning 
+ - Register `precondition` mark to avoid pytest warning
+
+### Changed
+ - Include tests, LICENSE, and CHANGELOG in source distribution
 
 
 ## [1.0.2] - 2020-08-01
@@ -15,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [1.0.1] - 2019-05-26
-- Support pytest versions 4.0, 4.4, and 4.5
+ - Support pytest versions 4.0, 4.4, and 4.5
 
 
 ## [1.0.0] - 2019-04-22
