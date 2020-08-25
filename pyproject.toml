@@ -5,7 +5,7 @@ description = 'pytest framework for testing different aspects of a common method
 license = 'MIT'
 
 authors = [
-    'Zach "theY4Kman" Kanzler <z@perchsecurity.com>'
+    'Zach "theY4Kman" Kanzler <they4kman@gmail.com>'
 ]
 
 readme = 'README.md'
@@ -18,8 +18,8 @@ packages = [
     { include = "CHANGELOG.md", format = "sdist" },
 ]
 
-repository = 'https://github.com/PerchSecurity/pytest-common-subject'
-homepage = 'https://github.com/PerchSecurity/pytest-common-subject'
+repository = 'https://github.com/theY4Kman/pytest-common-subject'
+homepage = 'https://github.com/theY4Kman/pytest-common-subject'
 
 keywords = ['pytest']
 
