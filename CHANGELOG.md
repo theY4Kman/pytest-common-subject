@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [Unreleased]
+### Added
+ - Introduce `AsyncCommonSubjectTestMixin` for async tests
+
 ### Changed
+ - Drop support for Python 3.6 and 3.7 (both EOL) — minimum Python version is now 3.8
  - Support pytest versions 7.2 to 8.2 (and relax version pinning to allow all 8.x versions)
 
 

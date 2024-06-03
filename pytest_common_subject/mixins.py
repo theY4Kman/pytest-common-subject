@@ -1,4 +1,5 @@
-from typing import Callable, Any, TypeVar, Dict
+import inspect
+from typing import Any, Awaitable, Callable, Dict, TypeVar
 
 import pytest
 
@@ -7,6 +8,7 @@ from .util import VolatileValue
 
 __all__ = [
     'CommonSubjectTestMixin',
+    'AsyncCommonSubjectTestMixin',
     'WithCommonSubjectDeferred',
 ]
 
@@ -171,6 +173,65 @@ class CommonSubjectTestMixin:
 
         for fixturename in precondition_fixtures:
             request.getfixturevalue(fixturename)
+
+
+class AsyncCommonSubjectTestMixin(CommonSubjectTestMixin):
+    """Asynchronous version of CommonSubjectTestMixin
+
+    The `common_subject_rval` fixture awaits the return value of `call_common_subject`,
+    if it is awaitable.
+    """
+
+    @pytest.fixture
+    def common_subject(self, *args) -> Callable[..., V | Awaitable[V]]:
+        """The method being tested in this context"""
+        raise NotImplementedError(
+            'Please override the `common_subject` fixture and provide a callable.')
+
+    @pytest.fixture(autouse=True)
+    @pytest.mark.late  # this ensures the fixture is executed at end of setup
+                       # NOTE: this MUST be placed after pytest.fixture
+    async def common_subject_rval(
+        self,
+        is_common_subject_deferred: bool,
+        call_common_subject: Callable[[], V | Awaitable[V]],
+        all_preconditions: Any,
+    ) -> V:
+        """The return value from invoking the common subject in this env
+
+        To perform any post-processing on the return value (like parsing the
+        JSON of an HTTP response), it's recommended to define another fixture
+        that requests `common_subject_rval`.
+        """
+        if is_common_subject_deferred:
+            return VolatileValue(
+                'An attempt was made to use `common_subject_rval` while '
+                '`is_common_subject_deferred` is True. This exception is '
+                'thrown to prevent accidental passing of tests through '
+                'unintended use of a deferred `common_subject_rval`',
+                exc_class=DeferredCommonSubjectRvalUsage,
+            )
+
+        result = call_common_subject()
+        if inspect.isawaitable(result):
+            return await result
+        else:
+            return result
+
+    @pytest.fixture
+    def call_common_subject(self,
+                            common_subject: Callable[..., V | Awaitable[V]],
+                            args: tuple,
+                            kwargs: dict[str, Any],
+                            ) -> Callable[[], V | Awaitable[V]]:
+        """A 0-arg method which invokes common_subject and returns its result
+
+        Override this to customize how the common subject is invoked.
+        """
+        def call_common_subject() -> V | Awaitable[V]:
+            return common_subject(*args, **kwargs)
+        return call_common_subject
+
 
 
 class WithCommonSubjectDeferred:
