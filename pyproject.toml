@@ -1,6 +1,6 @@
 [tool.poetry]
 name = 'pytest-common-subject'
-version = "1.0.6"
+version = "1.1.0"
 description = 'pytest framework for testing different aspects of a common method'
 license = 'MIT'
 
