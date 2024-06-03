@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [Unreleased]
+### Changed
+ - Support pytest versions 7.2 to 8.2 (and relax version pinning to allow all 8.x versions)
 
 
 ## [1.0.6] — 2022-05-15
