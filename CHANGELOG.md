@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Fixed
+ - Resolve `TypeError` in Python versions below 3.10 (due to usage of pipe unions in annotations)
  - (minor) Include tox install command script in source dist
 
 
