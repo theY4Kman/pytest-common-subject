@@ -13,6 +13,7 @@ packages = [
     { include = "pytest_common_subject" },
     { include = "pytest.ini", format = "sdist" },
     { include = "tox.ini", format = "sdist" },
+    { include = "_tox_install_command.sh", format = "sdist" },
     { include = "tests", format = "sdist" },
     { include = "LICENSE", format = "sdist" },
     { include = "CHANGELOG.md", format = "sdist" },

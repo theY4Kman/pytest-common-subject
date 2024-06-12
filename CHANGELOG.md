@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [Unreleased]
+### Fixed
+ - (minor) Include tox install command script in source dist
 
 
 ## [1.1.0] — 2024-06-03
