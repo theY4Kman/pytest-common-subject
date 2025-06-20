@@ -1,4 +1,4 @@
-import pkg_resources
+from importlib.metadata import version
 
 from .exceptions import DeferredCommonSubjectRvalUsage
 from .fixtures import precondition_fixture
@@ -8,7 +8,7 @@ from .mixins import (
     WithCommonSubjectDeferred,
 )
 
-__version__ = pkg_resources.get_distribution('pytest-common-subject').version
+__version__ = version('pytest-common-subject')
 
 __all__ = [
     'DeferredCommonSubjectRvalUsage',

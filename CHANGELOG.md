@@ -6,7 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [Unreleased]
+### Added
+ - Test Python 3.12 with pytest 8.3 and 8.4
 
+### Changed
+ - Switch to use importlib instead of pkg_resources to extract metadata.
+   No need to support Python < 3.8 so no fallback option is provided.
+ - Always depend on setuptools in tox.ini regardless of python version
 
 ## [1.1.1] — 2024-06-12
 ### Fixed
