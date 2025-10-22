@@ -1,4 +1,4 @@
-import pkg_resources
+from importlib import metadata
 
 from .exceptions import DeferredCommonSubjectRvalUsage
 from .fixtures import precondition_fixture
@@ -8,7 +8,11 @@ from .mixins import (
     WithCommonSubjectDeferred,
 )
 
-__version__ = pkg_resources.get_distribution('pytest-common-subject').version
+try:
+    __version__ = metadata.version('pytest-only')
+except metadata.PackageNotFoundError:
+    __version__ = 'dev'
+
 
 __all__ = [
     'DeferredCommonSubjectRvalUsage',

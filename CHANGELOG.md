@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 
 ## [Unreleased]
+### Fixed
+ - Resolve pkg_resources issues with Python 3.12+
+
+### Changed
+ - Drop support for Python 3.8 (EOL) — minimum Python version is now 3.9
+ - Support pytest versions 8.3 and 8.4 explicitly
 
 
 ## [1.1.1] — 2024-06-12
