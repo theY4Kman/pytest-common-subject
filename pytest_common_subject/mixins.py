@@ -17,6 +17,29 @@ __all__ = [
 V = TypeVar('V')
 
 
+def mark_late(fixture):
+    """Mark a fixture to be evaluated at the end of setup.
+
+    pytest-fixture-order reads the `late` mark off the fixture's function, but
+    from pytest 8.4 `@pytest.fixture` refuses a function that carries any marks,
+    so the mark cannot be applied before it. Attaching it afterwards leaves the
+    mark where pytest-fixture-order looks for it without the fixture ever being
+    built from a marked function.
+
+    The mark has to land on the function `FixtureDef.func` will point at, which
+    is not what `pytest.fixture` hands back: from 8.4 the return is a
+    FixtureFunctionDefinition holding the function, and before that it is a
+    wrapper that keeps the original under `__pytest_wrapped__`.
+    """
+    func = getattr(fixture, '_fixture_function', None)
+    if func is None:
+        wrapped = getattr(fixture, '__pytest_wrapped__', None)
+        func = wrapped.obj if wrapped is not None else fixture
+
+    func.pytestmark = [*getattr(func, 'pytestmark', ()), pytest.mark.late.mark]
+    return fixture
+
+
 class CommonSubjectTestMixin:
     """Abstract mixin for test contexts revolving around a common target
 
@@ -80,8 +103,6 @@ class CommonSubjectTestMixin:
         return False
 
     @pytest.fixture(autouse=True)
-    @pytest.mark.late  # this ensures the fixture is executed at end of setup
-                       # NOTE: this MUST be placed after pytest.fixture
     def common_subject_rval(self,
                             is_common_subject_deferred: bool,
                             call_common_subject: Callable[[], V],
@@ -103,6 +124,8 @@ class CommonSubjectTestMixin:
             )
 
         return call_common_subject()
+
+    common_subject_rval = mark_late(common_subject_rval)
 
     @pytest.fixture
     def call_common_subject(self,
@@ -191,8 +214,6 @@ class AsyncCommonSubjectTestMixin(CommonSubjectTestMixin):
             'Please override the `common_subject` fixture and provide a callable.')
 
     @pytest.fixture(autouse=True)
-    @pytest.mark.late  # this ensures the fixture is executed at end of setup
-                       # NOTE: this MUST be placed after pytest.fixture
     async def common_subject_rval(
         self,
         is_common_subject_deferred: bool,
@@ -219,6 +240,8 @@ class AsyncCommonSubjectTestMixin(CommonSubjectTestMixin):
             return await result
         else:
             return result
+
+    common_subject_rval = mark_late(common_subject_rval)
 
     @pytest.fixture
     def call_common_subject(self,
